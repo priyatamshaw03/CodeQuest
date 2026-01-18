@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
@@ -12,6 +14,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
 import Link from 'next/link'
+import { UserButton, useUser } from '@clerk/nextjs'
 
 const courses = [
   {
@@ -72,6 +75,9 @@ const courses = [
 
 
 function Header() {
+
+  const {user}= useUser();
+
   return (
     <div className='p-4 max-w-7xl flex justify-between items-center w-full'>
 
@@ -82,10 +88,10 @@ function Header() {
         </div>
 
       {/* navigation menu */}
-        <NavigationMenu>
+        <NavigationMenu className='font-game'>
           <NavigationMenuList className='gap-8'>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
+              <NavigationMenuTrigger className='text-xl'>Courses</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className='grid grid-cols-2 gap-2 sm:w-[400px] md:w-[500px] lg:w-[600]'>
                   {courses.map((course, index)=>(
@@ -98,21 +104,21 @@ function Header() {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>
+              <NavigationMenuLink className='text-xl'>
                 <Link href={'/projects'}>
                 Projects
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>
+              <NavigationMenuLink className='text-xl'>
                 <Link href={'/pricing'}>
                 Pricing
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>
+              <NavigationMenuLink className='text-xl'>
                 <Link href={'/contact-us'}>
                 Contact Us
                 </Link>
@@ -121,12 +127,18 @@ function Header() {
           </NavigationMenuList>
         </NavigationMenu>
 
-
-        <div>
+          {!user ?  
+          <Link href={'/sign-in'}>
             <Button className='font-game text-2xl' variant={'pixel'}>
-                Signup
+                Signin
             </Button>
-        </div>
+            </Link>
+            :<div className='flex gap-5 items-center'>
+              <Button className='font-game text-2xl' variant={'pixel'}>
+                Dashboard
+            </Button>
+            <UserButton/>
+        </div>}
     </div>
   )
 }
