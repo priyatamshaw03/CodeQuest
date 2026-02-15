@@ -1,11 +1,40 @@
-import React from 'react'
-import { ThemeProvider as NextThemesProvider } from "next-themes"
+"use client";
+import React, { useEffect, useState } from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { useUser } from "@clerk/nextjs";
+import axios from "axios";
+import { log } from "console";
+import { UserDetailContext } from "@/context/UserDetailContext";
+import Header from "./_components/Header";
 
-function Provider ({
-   children,
+function Provider({
+  children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
-  return ( <NextThemesProvider {...props}>{children}</NextThemesProvider> )
+  const { user } = useUser();
+  const [UserDetail, SetUserDetail] = useState();
+
+  useEffect(() => {
+    user && CreateNewUser();
+  }, [user]);
+
+  const CreateNewUser = async () => {
+    const result = await axios.post("/api/user", {});
+    console.log(result);
+    SetUserDetail(result?.data);
+  };
+
+  return (
+    <NextThemesProvider {...props}>
+      <UserDetailContext.Provider value={{ UserDetail, SetUserDetail }}>
+        <div className="flex flex-col items-center">
+          <Header />
+          
+        </div>
+        {children}
+      </UserDetailContext.Provider>
+    </NextThemesProvider>
+  );
 }
 
-export default Provider
+export default Provider;
