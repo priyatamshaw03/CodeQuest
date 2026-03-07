@@ -37,7 +37,7 @@ export default function CourseDetailBanner({
       await axios.post("/api/enroll-course", {
         courseId: courseDetail?.id,
       });
-      toast.success("Enrolled Successfully");
+      toast.success("Enrolled Successfully!");
       refreshData();
     } finally {
       setLoadingEnroll(false);
@@ -72,7 +72,7 @@ export default function CourseDetailBanner({
               {!courseDetail.userEnrolled ? (
                 <Button
                   onClick={EnrollCourse}
-                  className="mt-5 sm:mt-6 text-sm sm:text-lg md:text-2xl"
+                  className="mt-5 sm:mt-6 text-sm sm:text-lg md:text-2xl cursor-pointer"
                   variant="pixel"
                   size="lg"
                   disabled={loadingEnroll}

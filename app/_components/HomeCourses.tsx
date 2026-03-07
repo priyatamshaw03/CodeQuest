@@ -59,7 +59,7 @@ export default function HomeCourses() {
           <Link href="/courses">
             <Button
               variant="pixel"
-              className="font-game text-lg sm:text-xl px-6 py-4"
+              className="font-game text-lg sm:text-xl px-6 py-4 cursor-pointer"
             >
               Explore more
             </Button>

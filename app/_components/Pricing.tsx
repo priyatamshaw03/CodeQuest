@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default function PricingPage() {
+export default function Pricing() {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [isPro, setIsPro] = useState(false);
@@ -38,38 +38,43 @@ export default function PricingPage() {
   };
 
   return (
-    <section className="mt-12 font-game">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-24">
-        <h2 className="text-5xl sm:text-7xl text-center">
-          Pricing
-        </h2>
+    <section className="mt-16 font-game px-6">
+      <div className="max-w-7xl mx-auto">
 
-        <p className="text-base sm:text-xl text-center mt-2">
+        <h2 className="text-4xl md:text-6xl text-center">Pricing</h2>
+
+        <p className="text-center text-base md:text-lg mt-3">
           Join for unlimited access to all features and courses
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 justify-center">
-          <div className="border-4 p-6 rounded-2xl w-full max-w-sm mx-auto">
-            <h3 className="text-2xl sm:text-3xl">Free</h3>
-            <p className="text-xl sm:text-2xl mt-3">$0 / month</p>
+        {/* CARDS */}
+        <div className="flex flex-col md:flex-row justify-center items-stretch gap-12 mt-16">
 
-            <ul className="text-sm sm:text-lg mt-4 space-y-2">
+          {/* FREE */}
+          <div className="border-4 rounded-2xl p-10 w-full md:w-[420px]">
+            <h3 className="text-3xl">Free</h3>
+
+            <p className="text-xl mt-3">$0 / month</p>
+
+            <ul className="mt-6 space-y-3 text-base">
               <li>Limited courses</li>
               <li>Limited exercises</li>
               <li>Limited features</li>
               <li>No AI support</li>
             </ul>
 
-            <Button disabled className="mt-6 text-lg w-full">
+            <Button disabled className="mt-8 text-lg w-full">
               Current Plan
             </Button>
           </div>
 
-          <div className="border-4 p-6 rounded-2xl w-full max-w-sm mx-auto">
-            <h3 className="text-2xl sm:text-3xl">Pro</h3>
-            <p className="text-xl sm:text-2xl mt-3">$8.99 / month</p>
+          {/* PRO */}
+          <div className="border-4 rounded-2xl p-10 w-full md:w-[420px]">
+            <h3 className="text-3xl">Pro</h3>
 
-            <ul className="text-sm sm:text-lg mt-4 space-y-2">
+            <p className="text-xl mt-3">$8.99 / month</p>
+
+            <ul className="mt-6 space-y-3 text-base">
               <li>Unlimited courses</li>
               <li>All exercises unlocked</li>
               <li>AI support for help</li>
@@ -78,21 +83,26 @@ export default function PricingPage() {
 
             {!user ? (
               <Link href="/sign-in">
-                <Button variant="pixel" className="mt-6 w-full">
+                <Button variant="pixel" className="mt-8 w-full">
                   Sign in to upgrade
                 </Button>
               </Link>
             ) : (
               <Button
                 variant="pixel"
-                className="mt-6 text-lg w-full"
+                className="mt-8 text-lg w-full cursor-pointer"
                 onClick={handleUpgrade}
                 disabled={loading || isPro}
               >
-                {isPro ? "Already Pro" : loading ? "Upgrading..." : "Upgrade to Pro"}
+                {isPro
+                  ? "Already Pro"
+                  : loading
+                  ? "Upgrading..."
+                  : "Upgrade to Pro"}
               </Button>
             )}
           </div>
+
         </div>
       </div>
     </section>

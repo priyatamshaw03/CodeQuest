@@ -3,78 +3,59 @@ import { db } from '@/config/db';
 import { CourseChaptersTable } from '@/config/schema';
 
 export async function GET(req: NextRequest) {
- const DATA = [
+ const DATA =
+[
   {
     "id": 1,
-    "name": "Advanced Component Patterns",
-    "desc": "Learn advanced patterns like compound components, render props, and higher-order components.",
-    "exercises": []
+    "name": "React Hooks",
+    "desc": "Master React hooks to manage state and lifecycle in functional components.",
+    "exercises": [
+      {"name": "useEffect Explorer", "slug": "useeffect-explorer", "xp": 35, "difficulty": "medium"},
+      {"name": "Side Effect Mission", "slug": "side-effect-mission", "xp": 35, "difficulty": "medium"},
+      {"name": "Cleanup Handler", "slug": "cleanup-handler", "xp": 35, "difficulty": "medium"},
+      {"name": "Custom Hook Builder", "slug": "custom-hook-builder", "xp": 40, "difficulty": "hard"},
+      {"name": "Hook Puzzle", "slug": "hook-puzzle", "xp": 40, "difficulty": "hard"},
+      {"name": "Hook Arena", "slug": "hook-arena", "xp": 50, "difficulty": "hard"}
+    ]
   },
   {
     "id": 2,
-    "name": "React Router Deep Dive",
-    "desc": "Build multi-page applications using React Router with nested routes and dynamic routing.",
-    "exercises": []
+    "name": "Context API",
+    "desc": "Share global state across components without prop drilling.",
+    "exercises": [
+      {"name": "Context Creator", "slug": "context-creator", "xp": 35, "difficulty": "medium"},
+      {"name": "Provider Setup", "slug": "provider-setup", "xp": 35, "difficulty": "medium"},
+      {"name": "Consumer Mission", "slug": "consumer-mission", "xp": 35, "difficulty": "medium"},
+      {"name": "Global State Puzzle", "slug": "global-state-puzzle", "xp": 40, "difficulty": "hard"},
+      {"name": "Theme Switcher", "slug": "theme-switcher", "xp": 40, "difficulty": "hard"},
+      {"name": "Context Arena", "slug": "context-arena", "xp": 50, "difficulty": "hard"}
+    ]
   },
   {
     "id": 3,
-    "name": "Context API",
-    "desc": "Manage global state across components using React Context.",
-    "exercises": []
+    "name": "React Router",
+    "desc": "Build multi-page experiences using React Router.",
+    "exercises": [
+      {"name": "Router Setup", "slug": "router-setup", "xp": 35, "difficulty": "medium"},
+      {"name": "Route Builder", "slug": "route-builder", "xp": 35, "difficulty": "medium"},
+      {"name": "Dynamic Routes", "slug": "dynamic-routes", "xp": 40, "difficulty": "hard"},
+      {"name": "Navigation Links", "slug": "navigation-links", "xp": 35, "difficulty": "medium"},
+      {"name": "Protected Routes", "slug": "protected-routes", "xp": 40, "difficulty": "hard"},
+      {"name": "Router Arena", "slug": "router-arena", "xp": 50, "difficulty": "hard"}
+    ]
   },
   {
     "id": 4,
-    "name": "Custom Hooks",
-    "desc": "Create reusable logic by building your own custom React hooks.",
-    "exercises": []
-  },
-  {
-    "id": 5,
-    "name": "State Management",
-    "desc": "Manage complex application state using tools like Redux or Zustand.",
-    "exercises": []
-  },
-  {
-    "id": 6,
-    "name": "API Integration",
-    "desc": "Fetch and manage remote data using Axios, Fetch API, and async logic.",
-    "exercises": []
-  },
-  {
-    "id": 7,
-    "name": "React Query / Data Fetching",
-    "desc": "Handle caching, background updates, and server state using React Query or similar libraries.",
-    "exercises": []
-  },
-  {
-    "id": 8,
     "name": "Performance Optimization",
-    "desc": "Improve performance using memoization techniques like React.memo, useMemo, and useCallback.",
-    "exercises": []
-  },
-  {
-    "id": 9,
-    "name": "Code Splitting & Lazy Loading",
-    "desc": "Optimize bundle size using React.lazy and Suspense for dynamic imports.",
-    "exercises": []
-  },
-  {
-    "id": 10,
-    "name": "Testing React Applications",
-    "desc": "Write unit and component tests using Jest and React Testing Library.",
-    "exercises": []
-  },
-  {
-    "id": 11,
-    "name": "Authentication & Protected Routes",
-    "desc": "Implement authentication and secure routes using JWT or authentication providers.",
-    "exercises": []
-  },
-  {
-    "id": 12,
-    "name": "Advanced React Project",
-    "desc": "Build a production-level React application using routing, API integration, state management, and optimization techniques.",
-    "exercises": []
+    "desc": "Optimize React apps using memoization and performance techniques.",
+    "exercises": [
+      {"name": "Memo Explorer", "slug": "memo-explorer", "xp": 40, "difficulty": "hard"},
+      {"name": "useMemo Mission", "slug": "usememo-mission", "xp": 40, "difficulty": "hard"},
+      {"name": "useCallback Builder", "slug": "usecallback-builder", "xp": 40, "difficulty": "hard"},
+      {"name": "Render Optimization", "slug": "render-optimization", "xp": 40, "difficulty": "hard"},
+      {"name": "Lazy Loading", "slug": "lazy-loading", "xp": 45, "difficulty": "hard"},
+      {"name": "Performance Arena", "slug": "performance-arena", "xp": 55, "difficulty": "hard"}
+    ]
   }
 ]
 

@@ -10,6 +10,7 @@ import CourseChapters from "./_components/CourseChapters";
 import UpgradeToPro from "../../dashboard/_components/UpgradeToPro";
 import CommunityHelpSection from "./_components/CommunityHelpSection";
 import { Course } from "../_components/CourseList";
+import CourseStatus from "./_components/CourseStatus";
 
 
 export default function Page() {
@@ -41,7 +42,7 @@ export default function Page() {
       <CourseDetailBanner
         loading={loading}
         courseDetail={courseDetail}
-        refreshData={GetCourseDetail}
+        refreshData={()=>GetCourseDetail()}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-5 sm:px-8 md:px-16 lg:px-36 py-8">
@@ -49,12 +50,12 @@ export default function Page() {
           <CourseChapters
             loading={loading}
             courseDetail={courseDetail}
-            // isEnrolled={isEnrolled}
+            isEnrolled={isEnrolled}
           />
         </div>
 
         <div className="flex flex-col gap-6">
-          {/* <CourseStatus courseDetail={courseDetail} /> */}
+          <CourseStatus courseDetail={courseDetail} />
 
           {!isPro && <UpgradeToPro />}
 

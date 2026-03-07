@@ -18,7 +18,7 @@ export default function Footer() {
             </div>
 
             <p className="text-lg mt-3 max-w-s">
-              CodeQuest is an interactive learning platform designed to help beginners start their coding journey with ease. With a gamified approach and practical exercises, CodeQuest makes learning programming engaging and accessible for everyone.
+              CodeQuest is an interactive learning platform designed to help beginners start their coding journey with ease.
             </p>
           </div>
 

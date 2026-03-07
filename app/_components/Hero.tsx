@@ -8,9 +8,9 @@ function Hero() {
     <div className='w-full relative h-screen overflow-hidden'>
       <Image src={'/hero.gif'} alt='hero' width={1000} height={1000} className='w-full h-full object-cover absolute inset-0'/>
 
-      <div className='absolute w-full flex flex-col items-center mt-24'>
+      <div className='absolute w-full flex flex-col items-center mt-30'>
         <h2 className='font-semibold text-7xl font-game'>Start Your</h2>
-        <h2 className='font-semibold text-9xl font-game text-yellow-400' style={{
+        <h2 className='font-semibold text-8xl md:text-9xl font-game text-yellow-400' style={{
           textShadow:"2px -2px 0 #000, -2px 2px 0 #000"
         }}>Coding Adventure</h2>
         <h2 className='text-4xl font-game mt-5'>Beginner friendly Coding Courses and Projects</h2>

@@ -14,7 +14,22 @@ export type Course = {
   level: string;
   bannerImage: string;
   tags: string;
-  chapters?: Chapter[]
+  chapters?: Chapter[];
+  userEnrolled?: boolean;
+  courseEnrolledInfo?: courseEnrolledInfo;
+  completedExercises?: CompletedExercise[];
+  userSubscription?: "free" | "pro";
+};
+
+export type courseEnrolledInfo = {
+  xpEarned: number;
+  enrolledDate: any;
+};
+
+type CompletedExercise = {
+  chapterId: number;
+  courseId: number;
+  exerciseId: number;
 };
 
 export type Chapter = {
@@ -34,6 +49,11 @@ export type exercise = {
   chapterId: number;
   xp: number;
   difficulty: string;
+};
+
+type Props = {
+  smallerCard?: boolean;
+  maxLimit?: number;
 };
 
 function CourseList() {
@@ -62,10 +82,10 @@ function CourseList() {
 };
 
   return (
-    <div className="w-full px-3 sm:px-6 lg:px-8 mt-4">
+    <div className="w-full px-3 sm:px-6 lg:px-8 my-4">
       
       {/* Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         
         {courseList?.map((course) => (
           <Link href={`/courses/${course.id}`} key={course.id}>
@@ -111,7 +131,7 @@ function CourseList() {
         ))}
 
         {loading && (
-          <div className="col-span-full text-xl sm:text-2xl text-center text-gray-400 font-game py-10">
+          <div className="col-span-full text-2xl sm:text-4xl text-center text-gray-400 font-game py-10">
             Loading courses...
           </div>
         )}
