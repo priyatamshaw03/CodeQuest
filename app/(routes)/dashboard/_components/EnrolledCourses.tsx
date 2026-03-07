@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 function EnrolledCourses() {
@@ -14,9 +15,11 @@ function EnrolledCourses() {
           <h2 className="text-xl font-game">
             You don't have any enrolled courses
           </h2>
-          <Button variant={"pixel"} className="font-game text-lg" size={"lg"}>
-            Browser all courses
-          </Button>
+          <Link href={'/courses'}>
+            <Button variant={"pixel"} className="font-game text-lg cursor-pointer" size={"lg"}>
+              Browse all courses
+            </Button>
+          </Link>
         </div>
       ) : (
         <div>List</div>

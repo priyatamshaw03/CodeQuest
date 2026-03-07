@@ -8,7 +8,7 @@ function UserStatus() {
   return (
     <div className='p-4 border-4 rounded-2xl'>
         <div className='flex gap-1 items-center'>
-            <Image src={'/alex_walk.gif'} alt='walking_user' width={100} height={100}/>
+            <Image src={'/alex_walk.gif'} alt='walking_user' width={70} height={70}/>
             <h2 className='font-game text-xl'>{user?.primaryEmailAddress?.emailAddress}</h2>
         </div>
 

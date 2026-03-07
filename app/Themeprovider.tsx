@@ -1,35 +1,39 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import { log } from "console";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import Header from "./_components/Header";
 
-function Provider({
+function Themeprovider({
   children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
-  const { user } = useUser();
-  const [UserDetail, SetUserDetail] = useState();
+
+  const { user, isLoaded } = useUser();
+  const [userDetail, setUserDetail] = useState();
 
   useEffect(() => {
-    user && CreateNewUser();
-  }, [user]);
+    if (isLoaded && user) {
+      CreateNewUser();
+    }
+  }, [isLoaded, user]);
 
   const CreateNewUser = async () => {
-    const result = await axios.post("/api/user", {});
-    console.log(result);
-    SetUserDetail(result?.data);
+    try {
+      const result = await axios.post('/api/user');
+      setUserDetail(result?.data);
+    } catch (error) {
+      console.log("User API error:", error);
+    }
   };
 
   return (
     <NextThemesProvider {...props}>
-      <UserDetailContext.Provider value={{ UserDetail, SetUserDetail }}>
+      <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
         <div className="flex flex-col items-center">
           <Header />
-          
         </div>
         {children}
       </UserDetailContext.Provider>
@@ -37,4 +41,4 @@ function Provider({
   );
 }
 
-export default Provider;
+export default Themeprovider;

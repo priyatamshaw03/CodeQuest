@@ -11,7 +11,7 @@ function InviteFriend() {
       <p className='font-game'>Having Fun? Share he love with a friend ! Enter an email we will send them personal invite</p>
       <div className='flex gap-2 items-center mt-5'>
         <Input placeholder='Enter Invitee Email' className='min-w-sm font-game'/>
-        <Button variant={'pixel'} className='font-game'>Invite</Button>
+        <Button variant={'pixel'} className='font-game text-lg'>Invite</Button>
       </div>
     </div>
   )

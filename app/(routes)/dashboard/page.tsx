@@ -5,6 +5,7 @@ import ExploreMore from "./_components/ExploreMore";
 import InviteFriend from "./_components/InviteFriend";
 import UserStatus from "./_components/UserStatus";
 import UpgradeToPro from "./_components/UpgradeToPro";
+import Needhelp from "./_components/Needhelp";
 
 function Dashboard() {
   return (
@@ -19,6 +20,7 @@ function Dashboard() {
         <div>
           <UserStatus/>
           <UpgradeToPro/>
+          <Needhelp/>
         </div>
       </div>
     </div>

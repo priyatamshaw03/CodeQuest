@@ -1,10 +1,31 @@
-import { integer, pgTable, point, varchar } from "drizzle-orm/pg-core";
-import { SubscriptIcon } from "lucide-react";
+
+import { integer, json,text, pgTable, varchar } from "drizzle-orm/pg-core";
+
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),
   points: integer().default(0),
-  Subscripticon: varchar(),
+  subscription: varchar(),
 });
+
+export const CourseTable= pgTable("courses", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  courseId: integer().notNull().unique(),
+  title: varchar().notNull(),
+  desc: varchar().notNull(),
+  bannerImage: varchar().notNull(),
+  level: varchar().default('Beginner'),
+  tags: varchar(),
+  
+});
+
+export const CourseChaptersTable= pgTable("courseChapters",{
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  chapterId: integer(),
+  courseId: integer().notNull(),
+  name: varchar().notNull(),
+  desc: varchar(),
+  exercises: json(), 
+})
