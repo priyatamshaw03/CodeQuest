@@ -16,21 +16,21 @@ function UserStatus() {
             <div className='flex gap-3 items-center'>
                 <Image src={'/star.png'} alt='star' width={35} height={35}/>
                 <div>
-                    <h2 className='text-3xl font-game'>20</h2>
+                    <h2 className='text-3xl font-game'>5</h2>
                     <h2 className='font-game text-xl text-gray-400'>Total Rewards</h2>
                 </div>
             </div>
             <div className='flex gap-3 items-center'>
                 <Image src={'/badge.png'} alt='star' width={35} height={35}/>
                 <div>
-                    <h2 className='text-3xl font-game'>3</h2>
+                    <h2 className='text-3xl font-game'>1</h2>
                     <h2 className='font-game text-xl text-gray-400'>Badge</h2>
                 </div>
             </div>
             <div className='flex gap-3 items-center'>
                 <Image src={'/fire.png'} alt='star' width={35} height={35}/>
                 <div>
-                    <h2 className='text-3xl font-game'>7</h2>
+                    <h2 className='text-3xl font-game'>0</h2>
                     <h2 className='font-game text-xl text-gray-400'>Daily Streak</h2>
                 </div>
             </div>

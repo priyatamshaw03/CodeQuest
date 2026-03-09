@@ -12,7 +12,6 @@ import CommunityHelpSection from "./_components/CommunityHelpSection";
 import { Course } from "../_components/CourseList";
 import CourseStatus from "./_components/CourseStatus";
 
-
 export default function Page() {
   const { courseId } = useParams();
 

@@ -4,8 +4,7 @@ import { EnrolledCourseTable } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
-   const  {courseId}
- =await req.json();
+   const  {courseId}=await req.json();
    const user = await currentUser();
 
  const result = await db.insert(EnrolledCourseTable).values({

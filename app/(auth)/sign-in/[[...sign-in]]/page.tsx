@@ -37,7 +37,7 @@ export default function SignInPage() {
             bg-yellow-400 border-2 border-black 
             shadow-[3px_3px_0_0_#000] 
             hover:translate-y-[2px] hover:shadow-none
-            transition-all font-bold uppercase text-sm cursor-pointer"
+            transition-all font-bold uppercase text-sm rounded-lg cursor-pointer"
           >
             Login with Google
           </Clerk.Connection>
@@ -90,7 +90,7 @@ export default function SignInPage() {
             className="w-full py-2.5 bg-yellow-400 border-2 border-black 
             shadow-[3px_3px_0_0_#000] 
             hover:translate-y-[2px] hover:shadow-none 
-            transition-all uppercase cursor-pointer font-bold text-sm"
+            transition-all uppercase cursor-pointer rounded-lg font-bold text-sm"
           >
             Sign In
           </SignIn.Action>

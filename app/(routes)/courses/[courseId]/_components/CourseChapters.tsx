@@ -83,7 +83,37 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     <TooltipProvider delayDuration={200}>
       <section>
         {loading || !courseDetail?.chapters?.length ? (
-          <Skeleton className="w-full h-96 rounded-2xl mt-4" />
+          <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4 space-y-6">
+            
+            {/* Chapter Skeleton */}
+            {[1, 2, 3].map((_, i) => (
+              <div key={i} className="space-y-4">
+
+                {/* Chapter title */}
+                <div className="flex items-center gap-6">
+                  <Skeleton className="h-10 w-10 rounded-full" />
+                  <Skeleton className="h-8 w-64" />
+                </div>
+
+                {/* Exercise skeletons */}
+                <div className="space-y-4 pl-16">
+                  {[1, 2, 3].map((_, j) => (
+                    <div
+                      key={j}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="space-y-2">
+                        <Skeleton className="h-5 w-32" />
+                        <Skeleton className="h-5 w-48" />
+                      </div>
+                      <Skeleton className="h-10 w-24 rounded-lg" />
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4">
             {courseDetail.chapters.map((chapter, chapterIndex) => (

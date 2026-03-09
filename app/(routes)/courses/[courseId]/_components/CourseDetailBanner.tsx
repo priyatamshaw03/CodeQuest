@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 type Course = {
-  id: number;
+  courseId: number;
   title: string;
   desc: string;
   level: string;
@@ -24,19 +24,16 @@ type Props = {
   refreshData: () => void;
 };
 
-export default function CourseDetailBanner({
-  loading,
-  courseDetail,
-  refreshData,
-}: Props) {
+function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
   const [loadingEnroll, setLoadingEnroll] = useState(false);
 
   const EnrollCourse = async () => {
     try {
       setLoadingEnroll(true);
-      await axios.post("/api/enroll-course", {
-        courseId: courseDetail?.id,
+      const result = await axios.post("/api/enroll-course", {
+        courseId: courseDetail?.courseId,
       });
+      console.log(result);
       toast.success("Enrolled Successfully!");
       refreshData();
     } finally {
@@ -56,7 +53,6 @@ export default function CourseDetailBanner({
             width={1400}
             height={300}
             className="w-full h-[200px] sm:h-[260px] md:h-[300px] object-cover"
-            unoptimized
           />
 
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 flex items-center">
@@ -98,3 +94,5 @@ export default function CourseDetailBanner({
     </section>
   );
 }
+
+export default CourseDetailBanner

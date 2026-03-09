@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Course } from "../../_components/CourseList";
-
 
 type Props = {
   courseDetail?: Course;
@@ -32,6 +32,31 @@ export default function CourseStatus({ courseDetail }: Props) {
     setCounts({ totalExce: totalExercises, totalxp });
   }, [courseDetail]);
 
+  // ✅ Skeleton while loading
+  if (!courseDetail) {
+    return (
+      <div className="font-game p-4 sm:p-6 border-4 rounded-xl w-full mt-4 space-y-6">
+        <Skeleton className="h-8 w-48" />
+
+        <div className="flex items-center gap-5">
+          <Skeleton className="h-[50px] w-[50px] rounded-md" />
+          <div className="w-full space-y-2">
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-3 w-full" />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-5">
+          <Skeleton className="h-[50px] w-[50px] rounded-md" />
+          <div className="w-full space-y-2">
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-3 w-full" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const earnedXP = courseDetail?.courseEnrolledInfo?.xpEarned || 0;
   const totalXP = counts.totalxp || 1;
   const xpProgress = Math.min((earnedXP / totalXP) * 100, 100);
@@ -50,13 +75,7 @@ export default function CourseStatus({ courseDetail }: Props) {
       </h2>
 
       <div className="flex items-center gap-3 sm:gap-5 mt-4">
-        <Image
-          src="/book.png"
-          alt="book"
-          width={40}
-          height={40}
-          className="sm:w-[50px]"
-        />
+        <Image src="/book.png" alt="book" width={40} height={40} className="sm:w-[50px]" />
 
         <div className="w-full">
           <h2 className="flex justify-between text-sm sm:text-lg md:text-2xl">
@@ -70,13 +89,7 @@ export default function CourseStatus({ courseDetail }: Props) {
       </div>
 
       <div className="flex items-center gap-3 sm:gap-5 mt-5">
-        <Image
-          src="/star.png"
-          alt="star"
-          width={40}
-          height={40}
-          className="sm:w-[50px]"
-        />
+        <Image src="/star.png" alt="star" width={40} height={40} className="sm:w-[50px]" />
 
         <div className="w-full">
           <h2 className="flex justify-between text-sm sm:text-lg md:text-2xl">

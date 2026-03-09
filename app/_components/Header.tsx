@@ -58,6 +58,13 @@ const courses = [
     path: "/course/6/detail",
     level: "Advanced",
   },
+  {
+  id: 7,
+  name: "Java",
+  desc: "Learn Java programming fundamentals including OOP, data types, loops, and core concepts.",
+  path: "/course/7/detail",
+  level: "Beginner",
+  }
 ];
 
 function Header() {

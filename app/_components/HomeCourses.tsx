@@ -15,7 +15,7 @@ export default function HomeCourses() {
   useEffect(() => {
     const fetchCourses = async () => {
       const result = await axios.get("/api/course");
-      setCourses(result.data.slice(0, 3));
+      setCourses(result.data.slice(0, 6));
     };
     fetchCourses();
   }, []);

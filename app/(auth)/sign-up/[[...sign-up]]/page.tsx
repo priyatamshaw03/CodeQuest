@@ -75,7 +75,7 @@ export default function SignUpPage() {
             className="w-full py-2.5 bg-yellow-400 border-2 border-black 
             shadow-[3px_3px_0_0_#000] 
             hover:translate-y-[2px] hover:shadow-none 
-            transition-all uppercase font-bold text-sm"
+            transition-all uppercase rounded-lg font-bold text-sm"
           >
             Sign Up
           </SignUp.Action>
