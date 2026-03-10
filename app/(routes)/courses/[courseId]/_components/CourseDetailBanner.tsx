@@ -24,18 +24,24 @@ type Props = {
   refreshData: () => void;
 };
 
-function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
+function CourseDetailBanner({ loading, courseDetail, refreshData }: Props) {
   const [loadingEnroll, setLoadingEnroll] = useState(false);
 
-  const EnrollCourse = async () => {
+  const enrollCourse = async () => {
     try {
       setLoadingEnroll(true);
+
       const result = await axios.post("/api/enroll-course", {
         courseId: courseDetail?.courseId,
       });
-      console.log(result);
-      toast.success("Enrolled Successfully!");
-      refreshData();
+
+      if (result.data) {
+        toast.success("Enrolled Successfully!");
+        refreshData(); // refresh course data
+      }
+    } catch (error) {
+      toast.error("Enrollment Failed");
+      console.log(error);
     } finally {
       setLoadingEnroll(false);
     }
@@ -48,8 +54,8 @@ function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
       ) : (
         <div className="relative w-full">
           <Image
-            src={courseDetail?.bannerImage.trimEnd()}
-            alt={courseDetail?.title}
+            src={courseDetail.bannerImage.trimEnd()}
+            alt={courseDetail.title}
             width={1400}
             height={300}
             className="w-full h-[200px] sm:h-[260px] md:h-[300px] object-cover"
@@ -58,17 +64,17 @@ function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 flex items-center">
             <div className="font-game px-6 sm:px-10 md:px-20 lg:px-36">
               <h2 className="text-2xl sm:text-4xl md:text-6xl">
-                {courseDetail?.title}
+                {courseDetail.title}
               </h2>
 
               <p className="text-sm sm:text-lg md:text-2xl mt-2 text-gray-300 max-w-3xl">
-                {courseDetail?.desc}
+                {courseDetail.desc}
               </p>
 
               {!courseDetail.userEnrolled ? (
                 <Button
-                  onClick={EnrollCourse}
-                  className="mt-5 sm:mt-6 text-sm sm:text-lg md:text-2xl cursor-pointer"
+                  onClick={enrollCourse}
+                  className="mt-5 sm:mt-6 text-sm sm:text-lg md:text-2xl"
                   variant="pixel"
                   size="lg"
                   disabled={loadingEnroll}
@@ -76,7 +82,7 @@ function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
                   {loadingEnroll && (
                     <Loader2Icon className="animate-spin mr-2" />
                   )}
-                  Enroll now
+                  Enroll Now
                 </Button>
               ) : (
                 <Button
@@ -84,7 +90,7 @@ function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
                   variant="pixel"
                   size="lg"
                 >
-                  Continue learning
+                  Continue Learning
                 </Button>
               )}
             </div>
@@ -95,4 +101,4 @@ function CourseDetailBanner({loading, courseDetail, refreshData }: Props) {
   );
 }
 
-export default CourseDetailBanner
+export default CourseDetailBanner;

@@ -29,7 +29,7 @@ export default function Page() {
       setLoading(true);
       const res = await axios.get(`/api/course?courseId=${courseId}`);
       setCourseDetail(res.data);
-      setIsEnrolled(res.data.userEnrolled || false);
+      setIsEnrolled(res.data.userEnrolled);
       setIsPro(res.data.userSubscription === "pro");
     } finally {
       setLoading(false);

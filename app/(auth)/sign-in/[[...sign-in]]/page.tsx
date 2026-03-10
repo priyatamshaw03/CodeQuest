@@ -7,7 +7,6 @@ import Image from 'next/image'
 export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-yellow-100 via-white to-yellow-50 px-4 font-mono">
-      
       <SignIn.Root>
         <SignIn.Step
           name="start"

@@ -32,18 +32,10 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
   const subscription = courseDetail?.userSubscription ?? "free";
   const isPro = subscription === "pro";
 
-  const isExerciseCompleted = (chapterId: number, slug: string) => {
-    return courseDetail?.completedExercises?.some(
-      (item) =>
-        item.chapterId === chapterId &&
-        String(item.exerciseId) === String(slug)
-    );
-  };
-
-  const enableExercise = (
+  const EnableExercise = (
     chapterIndex: number,
     exerciseIndex: number,
-    chapter: any
+    chapter: any,
   ) => {
     if (!isEnrolled) return false;
     if (isPro) return true;
@@ -53,7 +45,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
 
     if (!chapters.length) return false;
 
-    if (completed.length === 0) {
+    if (!completed || completed.length === 0) {
       return chapterIndex === 0 && exerciseIndex === 0;
     }
 
@@ -70,7 +62,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
 
     if (prevChapter) {
       const prevCompleted = prevChapter.exercises.every((e: any) =>
-        isExerciseCompleted(prevChapter.chapterId, e.slug)
+        isExerciseCompleted(prevChapter.chapterId, e.slug),
       );
 
       if (prevCompleted && exerciseIndex === 0) return true;
@@ -79,16 +71,22 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     return false;
   };
 
+  const isExerciseCompleted = (chapterId: number, slug: string) => {
+    return courseDetail?.completedExercises?.some(
+      (item) =>
+        item.chapterId === chapterId &&
+        String(item.exerciseId) === String(slug),
+    );
+  };
+
   return (
     <TooltipProvider delayDuration={200}>
       <section>
         {loading || !courseDetail?.chapters?.length ? (
           <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4 space-y-6">
-            
             {/* Chapter Skeleton */}
             {[1, 2, 3].map((_, i) => (
               <div key={i} className="space-y-4">
-
                 {/* Chapter title */}
                 <div className="flex items-center gap-6">
                   <Skeleton className="h-10 w-10 rounded-full" />
@@ -98,10 +96,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                 {/* Exercise skeletons */}
                 <div className="space-y-4 pl-16">
                   {[1, 2, 3].map((_, j) => (
-                    <div
-                      key={j}
-                      className="flex items-center justify-between"
-                    >
+                    <div key={j} className="flex items-center justify-between">
                       <div className="space-y-2">
                         <Skeleton className="h-5 w-32" />
                         <Skeleton className="h-5 w-48" />
@@ -110,7 +105,6 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                     </div>
                   ))}
                 </div>
-
               </div>
             ))}
           </div>
@@ -138,13 +132,13 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                         (exercise: any, exerciseIndex: number) => {
                           const completed = isExerciseCompleted(
                             chapter.chapterId,
-                            exercise.slug
+                            exercise.slug,
                           );
 
-                          const enabled = enableExercise(
+                          const enabled = EnableExercise(
                             chapterIndex,
                             exerciseIndex,
-                            chapter
+                            chapter,
                           );
 
                           let tooltipMessage = "Complete previous exercise";
@@ -153,8 +147,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                             tooltipMessage = "Enroll to unlock exercises";
                           else if (!enabled)
                             tooltipMessage = "Complete previous exercise";
-                          else if (!isPro)
-                            tooltipMessage = "Upgrade to Pro";
+                          else if (!isPro) tooltipMessage = "Upgrade to Pro";
 
                           return (
                             <div
@@ -174,7 +167,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                               {completed ? (
                                 <Button
                                   variant="pixel"
-                                  className="bg-green-600 text-black"
+                                  className="bg-green-500 text-black"
                                   disabled
                                 >
                                   Completed
@@ -183,7 +176,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                 <Link
                                   href={`/courses/${courseDetail.id}/${chapter.chapterId}/${exercise.slug}`}
                                 >
-                                  <Button variant="pixel">
+                                  <Button className="cursor-pointer" variant="pixel">
                                     {exercise.xp} XP
                                   </Button>
                                 </Link>
@@ -207,7 +200,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                               )}
                             </div>
                           );
-                        }
+                        },
                       )}
                     </div>
                   </AccordionContent>

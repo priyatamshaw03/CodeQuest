@@ -26,7 +26,7 @@ export type courseEnrolledInfo = {
   enrolledDate: any;
 };
 
-type CompletedExercise = {
+export type CompletedExercise = {
   chapterId: number;
   courseId: number;
   exerciseId: number;
