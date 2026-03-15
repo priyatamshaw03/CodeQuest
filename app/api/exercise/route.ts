@@ -5,25 +5,16 @@ import { eq, and } from "drizzle-orm";
 import { currentUser } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
-  try {
-    const { courseId, chapterId, exerciseId } = await req.json();
-    const user = await currentUser();
-    const userEmail = user?.primaryEmailAddress?.emailAddress!;
 
-    const chapterResult = await db
-      .select()
-      .from(CourseChaptersTable)
-      .where(
-        and(
-          eq(CourseChaptersTable.courseId, courseId),
-          eq(CourseChaptersTable.chapterId, chapterId)
-        )
-      );
+    const { courseId, chapterId, exerciseId } = await req.json();
+
+    const courseInfo= await db.select().from(CourseTable)
+    .where(eq(CourseTable.courseId, courseId));
 
     const courseResult = await db
       .select()
-      .from(CourseTable)
-      .where(eq(CourseTable.courseId, courseId));
+      .from(CourseChaptersTable)
+      .where(eq(CourseChaptersTable.courseId, courseId));
 
     const exerciseResult = await db
       .select()
@@ -31,31 +22,19 @@ export async function POST(req: NextRequest) {
       .where(
         and(
           eq(ExerciseTable.courseId, courseId),
-          eq(ExerciseTable.chapterId, chapterId),
           eq(ExerciseTable.exerciseId, exerciseId)
         )
       );
 
-    const completed = await db
-      .select()
-      .from(CompletedExerciseTable)
-      .where(
-        and(
-          eq(CompletedExerciseTable.courseId, courseId),
-          eq(CompletedExerciseTable.userId, userEmail)
-        )
-      );
+      // get completed exercise in that course/chapter
+      const completedExercise = await db.select().from(CompletedExerciseTable)
+         .where(and(eq(CompletedExerciseTable?.courseId, courseId), eq(CompletedExerciseTable?.chapterId, chapterId))) 
 
     return NextResponse.json({
-      ...chapterResult[0],
-      exerciseData: {
-        ...exerciseResult[0],
-        // technology: courseResult[0].technology?.toLowerCase() || "static"
-      },
-      completedExercises: completed,
+      ...courseResult[0],
+      exerciseData: exerciseResult[0],
+      completedExercise: completedExercise,
+      editorType: courseInfo[0]?.editorType,
     });
-  } catch (err: any) {
-    console.error(err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  
 }

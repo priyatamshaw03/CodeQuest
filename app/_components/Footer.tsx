@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, Twitter, Unplug } from "lucide-react";
+import { Facebook, Instagram, Unplug } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -71,8 +71,8 @@ export default function Footer() {
                   target="_blank"
                   className="flex items-center justify-center sm:justify-start gap-2 hover:text-yellow-300 transition"
                 >
-                  <Twitter className="h-4 w-4" />
-                  Twitter / X
+                  <Facebook className="h-4 w-4" />
+                  Facebook
                 </Link>
               </li>
             </ul>

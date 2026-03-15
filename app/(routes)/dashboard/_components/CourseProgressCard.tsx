@@ -17,14 +17,14 @@ function CourseProgressCard({ course }: Props) {
       : 0;
 
   return (
-    <Link href={`/courses/${course.courseId}`} className="block">
+    <Link href={`/courses/${course?.courseId}`}>
       <div className="bg-zinc-900 rounded-2xl p-4 sm:p-5 border border-zinc-800 cursor-pointer h-full flex flex-col">
         <Image
-          src={course?.bannerImage?.trimEnd() || "/placeholder.png"}
-          alt={course?.title || "course banner"}
+          src={course?.bannerImage?.trimEnd()}
+          alt={course?.title}
           width={500}
           height={500}
-          className="w-full h-[140px] sm:h-[160px] md:h-[180px] rounded-xl object-cover"
+          className="w-full h-44 rounded-xl object-cover"
         />
 
         <div className="font-game mt-3 flex flex-col flex-1">

@@ -27,8 +27,8 @@ export default function SignUpPage() {
               Create Account
             </h1>
 
-            <p className="text-xs text-gray-600">
-              Start your coding journey 🚀
+            <p className="text-md font-game text-gray-600">
+              Start your coding journey.
             </p>
           </header>
 
@@ -38,7 +38,7 @@ export default function SignUpPage() {
           <div className="space-y-4">
 
             <Clerk.Field name="emailAddress" className="space-y-1">
-              <Clerk.Label className="text-base text-gray-600 font-bold uppercase font-game">
+              <Clerk.Label className="text-base text-gray-600 font-game">
                 Email
               </Clerk.Label>
               <Clerk.Input
@@ -53,7 +53,7 @@ export default function SignUpPage() {
             </Clerk.Field>
 
             <Clerk.Field name="password" className="space-y-1">
-              <Clerk.Label className="text-base text-gray-600 font-bold uppercase font-game">
+              <Clerk.Label className="text-base text-gray-600   font-game">
                 Password
               </Clerk.Label>
               <Clerk.Input
@@ -72,20 +72,20 @@ export default function SignUpPage() {
           {/* SUBMIT BUTTON */}
           <SignUp.Action
             submit
-            className="w-full py-2.5 bg-yellow-400 border-2 border-black 
+            className="w-full py-2 bg-yellow-400 border-2 border-black 
             shadow-[3px_3px_0_0_#000] 
-            hover:translate-y-[2px] hover:shadow-none 
-            transition-all uppercase rounded-lg font-bold text-sm"
+             hover:shadow-none 
+            transition-all rounded-lg font-game text-black text-xl"
           >
-            Sign Up
+            Create Account
           </SignUp.Action>
 
           {/* FOOTER */}
-          <p className="text-center text-gray-600 text-xs">
+          <p className="text-center font-game text-gray-600 text-md">
             Already have an account?{' '}
             <Clerk.Link
               navigate="sign-in"
-              className="font-bold underline underline-offset-4 hover:text-yellow-600 transition"
+              className=" underline underline-offset-4 hover:text-yellow-600 transition"
             >
               Sign in
             </Clerk.Link>

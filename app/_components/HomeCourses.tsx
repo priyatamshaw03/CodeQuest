@@ -24,7 +24,7 @@ export default function HomeCourses() {
     <section className="mt-20 font-game text-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 lg:px-24">
         <h2 className="text-3xl sm:text-4xl md:text-5xl">
-          Some popular Courses
+          Some Popular Courses
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mt-10">
@@ -61,7 +61,7 @@ export default function HomeCourses() {
               variant="pixel"
               className="font-game text-lg sm:text-xl px-6 py-4 cursor-pointer"
             >
-              Explore more
+              View All
             </Button>
           </Link>
         </div>

@@ -31,7 +31,7 @@ const ExplorMoreOptions = [
 function ExploreMore() {
   return (
     <div className='mt-8 '>
-      <h2 className="text-3xl mb-2 font-game">Explore More (Coming Soon...)</h2>
+      <h2 className="text-3xl mb-2 font-game">Coming Soon...</h2>
       <div className='grid grid-cols-2 gap-5'>
         {ExplorMoreOptions.map((option, index)=>(
             <div key={index} className='flex gap-2 p-2 border rounded-xl bg-zinc-900'>

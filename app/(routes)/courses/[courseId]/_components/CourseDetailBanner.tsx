@@ -54,8 +54,8 @@ function CourseDetailBanner({ loading, courseDetail, refreshData }: Props) {
       ) : (
         <div className="relative w-full">
           <Image
-            src={courseDetail.bannerImage.trimEnd()}
-            alt={courseDetail.title}
+            src={courseDetail?.bannerImage?.trimEnd() || '/course-banner.gif'}
+            alt={courseDetail?.title || ''}
             width={1400}
             height={300}
             className="w-full h-[200px] sm:h-[260px] md:h-[300px] object-cover"
@@ -64,11 +64,11 @@ function CourseDetailBanner({ loading, courseDetail, refreshData }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 flex items-center">
             <div className="font-game px-6 sm:px-10 md:px-20 lg:px-36">
               <h2 className="text-2xl sm:text-4xl md:text-6xl">
-                {courseDetail.title}
+                {courseDetail?.title}
               </h2>
 
               <p className="text-sm sm:text-lg md:text-2xl mt-2 text-gray-300 max-w-3xl">
-                {courseDetail.desc}
+                {courseDetail?.desc}
               </p>
 
               {!courseDetail.userEnrolled ? (

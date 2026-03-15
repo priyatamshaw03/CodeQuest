@@ -8,7 +8,7 @@ function CommunityHelpSection() {
       
       <h2 className='text-3xl font-game'>Need Help ?</h2>
       <p className='font-game text-gray-500 text-xl text-center'>Ask Question in our community</p>
-      <Link href={'/contact-us'}>
+      <Link href={'https://discord.com'}>
         <Button className='font-game cursor-pointer text-lg' variant={'pixel'}>Go to Community</Button>
       </Link>
     

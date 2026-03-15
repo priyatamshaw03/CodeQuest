@@ -23,6 +23,7 @@ export const CourseTable = pgTable("courses", {
   bannerImage: varchar().notNull(),
   level: varchar().default("Beginner"),
   tags: varchar(),
+  editorType: varchar()
 });
 
 export const CourseChaptersTable = pgTable("courseChapters", {
@@ -46,7 +47,7 @@ export const CompletedExerciseTable = pgTable("completedExercise", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   courseId: integer(),
   chapterId: integer(),
-  exerciseId: varchar(),
+  exerciseId: integer(),
   userId: varchar(),
 });
 
@@ -56,6 +57,6 @@ export const ExerciseTable = pgTable("exercise", {
   chapterId: integer(),
   exerciseId: varchar(),
   exercisesContent: json(),
-  ererciseName: varchar(),
+  exerciseName: varchar(),
   xp: integer().default(10),
 });

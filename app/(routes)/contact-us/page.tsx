@@ -11,7 +11,9 @@ export default function ContactUsPage() {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -22,41 +24,39 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white font-game">
-      
-      {/* Banner */}
-      <div className="relative w-full h-[220px] sm:h-[280px] md:h-[340px] overflow-hidden">
-        <Image
-          src="/contact-us.jpg"
-          fill
-          alt="contact-banner"
-          className="object-cover"
-          priority
-        />
+    <div className="min-h-screen bg-black text-white px-6 py-16">
 
-        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center px-4">
-          {/* <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-yellow-400">
-            Contact Us
-          </h1>
-          <p className="text-sm sm:text-lg md:text-2xl mt-3 text-gray-200">
-            We'd love to hear from you
-          </p> */}
-        </div>
+      {/* Heading */}
+      <div className="text-center mb-12">
+        <h1 className="text-6xl font-game md:text-7xl font-bold text-yellow-400">
+          Contact Us
+        </h1>
+        <p className="text-gray-300 font-game mt-3 text-2xl">
+          We'd love to hear from you
+        </p>
       </div>
 
-      {/* Form */}
-      <div className="max-w-4xl mx-auto mt-10 px-4 sm:px-6">
-        
-          <p className="text-3xl
-          lg:text-4xl text-center mb-10 md:text-2xl mt-3 text-gray-200">
-            We'd love to hear from you
-          </p>
-        <div className="bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl p-6 sm:p-10">
-          
+      {/* Main Section */}
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+        {/* LEFT IMAGE */}
+        <div className="relative w-full h-[600px] rounded-2xl overflow-hidden border border-zinc-800 shadow-lg">
+          <Image
+            src="/contact-us.png"
+            fill
+            alt="contact-image"
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* RIGHT FORM */}
+        <div className="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-xl">
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
             <div>
-              <label className="text-sm sm:text-base font-medium">
+              <label className="text-sm font-medium text-gray-300">
                 Your Name
               </label>
               <input
@@ -66,12 +66,12 @@ export default function ContactUsPage() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Enter your name"
-                className="w-full px-4 py-3 mt-2 bg-zinc-800 rounded-xl border border-zinc-700 outline-none focus:border-yellow-400 transition"
+                className="w-full mt-2 px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg outline-none focus:border-yellow-400 transition"
               />
             </div>
 
             <div>
-              <label className="text-sm sm:text-base font-medium">
+              <label className="text-sm font-medium text-gray-300">
                 Your Email
               </label>
               <input
@@ -81,12 +81,12 @@ export default function ContactUsPage() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className="w-full px-4 py-3 mt-2 bg-zinc-800 rounded-xl border border-zinc-700 outline-none focus:border-yellow-400 transition"
+                className="w-full mt-2 px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg outline-none focus:border-yellow-400 transition"
               />
             </div>
 
             <div>
-              <label className="text-sm sm:text-base font-medium">
+              <label className="text-sm font-medium text-gray-300">
                 Message
               </label>
               <textarea
@@ -96,30 +96,28 @@ export default function ContactUsPage() {
                 onChange={handleChange}
                 rows={5}
                 placeholder="Write your message..."
-                className="w-full px-4 py-3 mt-2 bg-zinc-800 rounded-xl border border-zinc-700 outline-none focus:border-yellow-400 resize-none transition"
+                className="w-full mt-2 px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg outline-none focus:border-yellow-400 resize-none transition"
               />
             </div>
 
             <Button
               variant="pixel"
               type="submit"
-              className="w-full text-base sm:text-lg py-6 mt-2"
+              className="w-full font-game text-2xl py-6 mt-2"
             >
               Send Message
             </Button>
 
           </form>
-        </div>
-      </div>
 
-      {/* Contact Info */}
-      <div className="text-center my-12 px-4">
-        <p className="text-sm sm:text-lg text-gray-400">
-          Or reach us directly at
-        </p>
-        <p className="text-xl sm:text-2xl text-yellow-400 my-2">
-          support@codequest.com
-        </p>
+          <div className="mt-6 text-center text-sm text-gray-400">
+            Or email us directly at
+            <p className="text-yellow-400 text-lg mt-1">
+              support@codequest.com
+            </p>
+          </div>
+
+        </div>
       </div>
 
     </div>

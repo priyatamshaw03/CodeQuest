@@ -22,8 +22,8 @@ export default function SignInPage() {
             <h1 className="text-lg font-bold text-gray-600 uppercase tracking-wide font-game">
               Welcome Back
             </h1>
-            <p className="text-xs text-gray-600">
-              Sign in to continue your coding journey 🚀
+            <p className="text-md font-game text-gray-600">
+              Sign in to continue your coding journey.
             </p>
           </header>
 
@@ -32,18 +32,18 @@ export default function SignInPage() {
           {/* GOOGLE LOGIN */}
           <Clerk.Connection
             name="google"
-            className="flex w-full items-center justify-center gap-2 px-3 py-2.5 
-            bg-yellow-400 border-2 border-black 
+            className="flex w-full items-center justify-center gap-2 px-3 py-2 
+            bg-yellow-400 border-2 border-black text-black 
             shadow-[3px_3px_0_0_#000] 
-            hover:translate-y-[2px] hover:shadow-none
-            transition-all font-bold uppercase text-sm rounded-lg cursor-pointer"
+            font-game hover:shadow-none
+            transition-all text-xl rounded-lg cursor-pointer"
           >
             Login with Google
           </Clerk.Connection>
 
           <div className="relative flex items-center">
             <div className="flex-grow border-t border-black"></div>
-            <span className="mx-3 text-[10px] uppercase font-bold text-gray-500">
+            <span className="mx-3 text-md font-game text-gray-500">
               or continue with email
             </span>
             <div className="flex-grow border-t border-black"></div>
@@ -53,7 +53,7 @@ export default function SignInPage() {
           <div className="space-y-4">
 
             <Clerk.Field name="identifier" className="space-y-1">
-              <Clerk.Label className="text-base text-gray-600 font-bold uppercase font-game">
+              <Clerk.Label className="text-base text-gray-600 font-game">
                 Email
               </Clerk.Label>
               <Clerk.Input
@@ -68,7 +68,7 @@ export default function SignInPage() {
             </Clerk.Field>
 
             <Clerk.Field name="password" className="space-y-1">
-              <Clerk.Label className="text-base text-gray-600 font-bold uppercase font-game">
+              <Clerk.Label className="text-base text-gray-600 font-game">
                 Password
               </Clerk.Label>
               <Clerk.Input
@@ -86,20 +86,20 @@ export default function SignInPage() {
           {/* SUBMIT BUTTON */}
           <SignIn.Action
             submit
-            className="w-full py-2.5 bg-yellow-400 border-2 border-black 
+            className="w-full py-2 bg-yellow-400 border-2 border-black 
             shadow-[3px_3px_0_0_#000] 
-            hover:translate-y-[2px] hover:shadow-none 
-            transition-all uppercase cursor-pointer rounded-lg font-bold text-sm"
+            hover:shadow-none 
+            transition-all cursor-pointer rounded-lg text-black font-game text-xl"
           >
-            Sign In
+            Sign in
           </SignIn.Action>
 
           {/* FOOTER */}
-          <p className="text-center text-gray-600 text-xs">
-            No account?{' '}
+          <p className="text-center font-game text-gray-600 text-md">
+            New to CodeQuest?{' '}
             <Clerk.Link
               navigate="sign-up"
-              className="font-bold underline underline-offset-4 hover:text-yellow-600 transition"
+              className="font-game text-md underline underline-offset-4 hover:text-yellow-600 transition"
             >
               Create an account
             </Clerk.Link>

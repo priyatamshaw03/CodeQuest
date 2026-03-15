@@ -4,14 +4,12 @@ import Header from "./_components/Header";
 import Hero from "./_components/Hero";
 import HomeCourses from "./_components/HomeCourses";
 import Footer from "./_components/Footer";
-import Pricing from "./_components/Pricing";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <Hero/>
       <HomeCourses/>
-      <Pricing/>
       <Footer/>
     </div>
   );

@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
 
 type Props = {
   loading: boolean;
@@ -29,8 +30,8 @@ type Props = {
 };
 
 function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
-  const subscription = courseDetail?.userSubscription ?? "free";
-  const isPro = subscription === "pro";
+  const { has } = useAuth();
+  const hasPremiumAccess = has && has({ plan: "premium" });
 
   const EnableExercise = (
     chapterIndex: number,
@@ -38,7 +39,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     chapter: any,
   ) => {
     if (!isEnrolled) return false;
-    if (isPro) return true;
+
 
     const completed = courseDetail?.completedExercises ?? [];
     const chapters = courseDetail?.chapters ?? [];
@@ -71,13 +72,13 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     return false;
   };
 
-  const isExerciseCompleted = (chapterId: number, slug: string) => {
-    return courseDetail?.completedExercises?.some(
-      (item) =>
-        item.chapterId === chapterId &&
-        String(item.exerciseId) === String(slug),
-    );
-  };
+  const isExerciseCompleted = (chapterId: number, exerciseId: number) => {
+  return courseDetail?.completedExercises?.some(
+    (item) =>
+      item.chapterId === chapterId &&
+      item.exerciseId === exerciseId
+  );
+};
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -118,11 +119,18 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
               >
                 <AccordionItem value={`item-${chapterIndex}`}>
                   <AccordionTrigger className="p-3 hover:bg-zinc-800 font-game text-base sm:text-2xl md:text-3xl">
-                    <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 bg-zinc-800 flex items-center justify-center rounded-full text-sm sm:text-2xl md:text-3xl">
-                        {chapterIndex + 1}
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
+                        <div className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 bg-zinc-800 flex items-center justify-center rounded-full text-sm sm:text-2xl md:text-3xl">
+                          {chapterIndex + 1}
+                        </div>
+                        <h2 className="truncate">{chapter.name}</h2>
                       </div>
-                      <h2 className="truncate">{chapter.name}</h2>
+                      {!hasPremiumAccess && chapterIndex >= 2 && (
+                        <h2 className="font-game text-xl border-3 px-3 bg-yellow-400 text-black rounded-full">
+                          Premium
+                        </h2>
+                      )}
                     </div>
                   </AccordionTrigger>
 
@@ -147,7 +155,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                             tooltipMessage = "Enroll to unlock exercises";
                           else if (!enabled)
                             tooltipMessage = "Complete previous exercise";
-                          else if (!isPro) tooltipMessage = "Upgrade to Pro";
+                          else if (!hasPremiumAccess) tooltipMessage = "Upgrade to Premium";
 
                           return (
                             <div
@@ -163,21 +171,31 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                   {exercise.name}
                                 </h2>
                               </div>
-
                               {completed ? (
                                 <Button
                                   variant="pixel"
-                                  className="bg-green-500 text-black"
+                                  className="bg-green-600 text-black"
                                   disabled
                                 >
                                   Completed
                                 </Button>
-                              ) : enabled ? (
+                              ) : courseDetail?.userEnrolled  &&
+                                !hasPremiumAccess &&
+                                chapterIndex < 2 ? (
                                 <Link
-                                  href={`/courses/${courseDetail.id}/${chapter.chapterId}/${exercise.slug}`}
+                                  href={`/courses/${courseDetail?.id}/${chapter.chapterId}/${exercise.slug}`}
                                 >
-                                  <Button className="cursor-pointer" variant="pixel">
-                                    {exercise.xp} XP
+                                  <Button variant="pixel">
+                                    {exercise?.xp} XP
+                                  </Button>
+                                </Link>
+                              ) : hasPremiumAccess &&
+                                courseDetail?.userEnrolled ? (
+                                <Link
+                                  href={`/courses/${courseDetail?.id}/${chapter.chapterId}/${exercise.slug}`}
+                                >
+                                  <Button variant="pixel">
+                                    {exercise?.xp} XP
                                   </Button>
                                 </Link>
                               ) : (
@@ -190,10 +208,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                     </span>
                                   </TooltipTrigger>
 
-                                  <TooltipContent
-                                    side="left"
-                                    className="font-game text-sm sm:text-lg"
-                                  >
+                                  <TooltipContent side="left" className="font-game text-sm sm:text-lg">
                                     {tooltipMessage}
                                   </TooltipContent>
                                 </Tooltip>

@@ -21,7 +21,7 @@ function ExploreMoreCourse() {
         </Link>
       </div>
 
-      <CourseList smallerCard={true} maxLimit={5} />
+      <CourseList smallerCard={true} maxLimit={3} />
     </section>
   );
 }

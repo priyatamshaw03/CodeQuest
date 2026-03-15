@@ -1,7 +1,7 @@
 import React from "react";
 import { CourseExercise } from "../page";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Goal, Lightbulb } from "lucide-react";
+import { Book, Goal, Lightbulb } from "lucide-react";
 
 type Props = {
   courseExerciseData: CourseExercise | undefined;
@@ -12,13 +12,14 @@ function ContentSection({ courseExerciseData, loading }: Props) {
   const contentInfo = courseExerciseData?.exerciseData;
 
   return (
-    <div className="px-5 py-12 sm:px-8 md:px-10 pb-6 w-full overflow-x-hidden">
+    <div className="p-10 mb-28">
       {loading || !contentInfo ? (
-        <Skeleton className="h-[500px] w-full rounded-2xl" />
+        <Skeleton className="h-full m-10 w-full rounded-2xl" />
       ) : (
-        <>
-          <h2 className="font-game text-xl sm:text-2xl md:text-3xl my-3 break-words">
-            {contentInfo.exerciseName}
+        <div>
+          <h2 className="font-game text-3xl my-3 flex items-center gap-2">
+            <Book className="text-yellow-500"/>
+            {courseExerciseData?.exerciseData?.exerciseName}
           </h2>
 
           <div
@@ -31,10 +32,11 @@ function ContentSection({ courseExerciseData, loading }: Props) {
               [&_code]:break-words
             "
             dangerouslySetInnerHTML={{
-              __html: contentInfo.exercisesContent?.content || "",
+              __html: contentInfo?.exercisesContent?.content || "",
             }}
           />
 
+          {/* task */}
           <div className="mt-6">
             <h2 className="font-game text-xl sm:text-2xl md:text-3xl mb-2 flex items-center gap-2 text-blue-400">
               <Goal className="h-5 w-5 shrink-0" />
@@ -53,6 +55,7 @@ function ContentSection({ courseExerciseData, loading }: Props) {
             />
           </div>
 
+          {/* Hint */}
           <div className="mt-4 mb-16">
             <h2 className="font-game text-xl sm:text-2xl md:text-3xl mb-2 flex items-center gap-2 text-yellow-400">
               <Lightbulb className="h-5 w-5 shrink-0" />
@@ -70,7 +73,7 @@ function ContentSection({ courseExerciseData, loading }: Props) {
               }}
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

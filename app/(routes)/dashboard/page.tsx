@@ -6,6 +6,7 @@ import InviteFriend from "./_components/InviteFriend";
 import UserStatus from "./_components/UserStatus";
 import UpgradeToPro from "./_components/UpgradeToPro";
 import Needhelp from "./_components/Needhelp";
+import ExploreMoreCourse from "./_components/ExploreMoreCourse";
 
 function Dashboard() {
   return (
@@ -14,6 +15,7 @@ function Dashboard() {
         <div className="col-span-2">
           <WelcomeBanner/>
           <EnrolledCourses/>
+          <ExploreMoreCourse/>
           <ExploreMore/>
           <InviteFriend/>
         </div>

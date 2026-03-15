@@ -18,7 +18,6 @@ export type Course = {
   userEnrolled?: boolean;
   courseEnrolledInfo?: courseEnrolledInfo;
   completedExercises?: CompletedExercise[];
-  userSubscription?: "free" | "pro";
 };
 
 export type courseEnrolledInfo = {
@@ -56,7 +55,7 @@ type Props = {
   maxLimit?: number;
 };
 
-function CourseList() {
+function CourseList({smallerCard, maxLimit}: Props) {
   const [courseList, setCourseList] = useState<Course[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -87,7 +86,7 @@ function CourseList() {
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         
-        {courseList?.map((course) => (
+        {courseList?.map((course, index) => maxLimit && maxLimit > index && (
           <Link href={`/courses/${course.id}`} key={course.id}>
             
             <div className="border-2 border-zinc-800 rounded-xl overflow-hidden hover:bg-zinc-900 hover:scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col h-full">
@@ -96,13 +95,10 @@ function CourseList() {
               <div className="relative w-full aspect-video">
                 <Image
                   src={(course?.bannerImage).trimEnd()}
+                  width={400}
+                  height={400}
                   alt={course?.title}
-                  fill
-                  sizes="(max-width:640px) 100vw,
-                         (max-width:1024px) 50vw,
-                         (max-width:1280px) 33vw,
-                         25vw"
-                  className="object-cover"
+                  className={`w-full ${smallerCard?'h-[120px]':'h-[200px]'} object-cover rounded-t-2xl-2xl`}
                 />
               </div>
 

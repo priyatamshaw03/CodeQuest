@@ -6,7 +6,7 @@ import axios from "axios";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import Header from "./_components/Header";
 
-function Themeprovider({
+function Provider({
   children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
@@ -21,12 +21,9 @@ function Themeprovider({
   }, [isLoaded, user]);
 
   const CreateNewUser = async () => {
-    try {
       const result = await axios.post('/api/user');
       setUserDetail(result?.data);
-    } catch (error) {
-      console.log("User API error:", error);
-    }
+    
   };
 
   return (
@@ -41,4 +38,4 @@ function Themeprovider({
   );
 }
 
-export default Themeprovider;
+export default Provider;

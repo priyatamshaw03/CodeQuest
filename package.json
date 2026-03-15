@@ -11,6 +11,7 @@
     "@clerk/elements": "^0.24.8",
     "@clerk/nextjs": "^6.36.8",
     "@codesandbox/sandpack-react": "^2.20.0",
+    "@codesandbox/sandpack-themes": "^2.0.21",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.0.2",
     "@radix-ui/react-accordion": "^1.2.12",
