@@ -66,13 +66,13 @@ import axios from "axios";
 function Header() {
   const { user } = useUser();
   const { exerciseslug } = useParams();
-  const [courses, setCourses]=useState<Course[]>();
+  const [courses, setCourses]=useState<Course[]>([]);
 
   useEffect(()=>{
     GetCourses();
   },[])
   const GetCourses= async ()=>{
-    const result = await axios.get('api/course');
+    const result = await axios.get('/api/course');
     console.log(result.data)
     setCourses(result.data)
   }
@@ -89,7 +89,7 @@ function Header() {
 
         {/* CENTER NAVIGATION */}
         <div className="absolute left-1/2 -translate-x-1/2 flex">
-          {!exerciseslug && courses ? (
+          {!exerciseslug && courses.length > 0 ? (
             <NavigationMenu className="font-game">
               <NavigationMenuList className="gap-8">
 
