@@ -19,8 +19,8 @@ type Course = {
 };
 
 type Props = {
-  loading: boolean;
-  courseDetail?: Course;
+  loading: boolean,
+  courseDetail: Course | undefined,
   refreshData: () => void;
 };
 

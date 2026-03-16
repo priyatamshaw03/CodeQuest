@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "User email not found" }, { status: 400 });
   }
 
-  const email = user.primaryEmailAddress.emailAddress;
+  const email = user.primaryEmailAddress?.emailAddress;
 
   const users = await db
     .select()

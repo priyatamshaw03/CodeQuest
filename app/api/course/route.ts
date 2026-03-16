@@ -121,7 +121,7 @@ return NextResponse.json(formattedResult);
   }
   else{
     // fetch all courses
-    const result = await db.select().from(CourseTable).orderBy(asc(CourseTable.courseId));;
+    const result = await db.select().from(CourseTable).orderBy(asc(CourseTable.courseId));
     return NextResponse.json(result);
   }
   

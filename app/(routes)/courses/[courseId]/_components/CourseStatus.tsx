@@ -35,24 +35,8 @@ export default function CourseStatus({ courseDetail }: Props) {
   // ✅ Skeleton while loading
   if (!courseDetail) {
     return (
-      <div className="font-game p-4 sm:p-6 border-4 rounded-xl w-full mt-4 space-y-6">
-        <Skeleton className="h-8 w-48" />
-
-        <div className="flex items-center gap-5">
-          <Skeleton className="h-[50px] w-[50px] rounded-md" />
-          <div className="w-full space-y-2">
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-3 w-full" />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-5">
-          <Skeleton className="h-[50px] w-[50px] rounded-md" />
-          <div className="w-full space-y-2">
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-3 w-full" />
-          </div>
-        </div>
+      <div className="p-4 sm:p-6 border-4 rounded-xl w-full mt-4">
+        <Skeleton className="h-[350px] w-full rounded-xl animate-pulse" />
       </div>
     );
   }

@@ -33,15 +33,15 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
   const { has } = useAuth();
   const hasPremiumAccess = has && has({ plan: "premium" });
 
-  const isExerciseCompleted = (chapterId: number, exerciseSlug: string) => {
+  const isExerciseCompleted = (chapterId: number, exerciseId: number) => {
     return courseDetail?.completedExercises?.some(
       (item) =>
         item.chapterId === chapterId &&
-        String(item.exerciseId) === exerciseSlug
+        item.exerciseId === exerciseId
     );
   };
 
-  const enableExercise = (
+  const EnableExercise = (
     chapterIndex: number,
     exerciseIndex: number,
     chapter: any
@@ -109,7 +109,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
         ) : (
           <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4">
             <Accordion type="single" collapsible>
-              {courseDetail.chapters.map((chapter, chapterIndex) => (
+              {courseDetail?.chapters?.map((chapter, chapterIndex) => (
                 <AccordionItem
                   key={chapter.chapterId}
                   value={`item-${chapterIndex}`}
@@ -133,14 +133,14 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
 
                   <AccordionContent>
                     <div className="p-4 sm:p-6 bg-zinc-900 rounded-xl">
-                      {chapter.exercises?.map(
+                      {chapter?.exercises?.map(
                         (exercise: any, exerciseIndex: number) => {
                           const completed = isExerciseCompleted(
                             chapter.chapterId,
                             exercise.slug
                           );
 
-                          const enabled = enableExercise(
+                          const enabled = EnableExercise(
                             chapterIndex,
                             exerciseIndex,
                             chapter
@@ -167,11 +167,11 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                             >
                               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 font-game">
                                 <h2 className="text-sm sm:text-lg md:text-2xl">
-                                  Exercise {exerciseIndex + 1}
+                                  Exercise {chapterIndex * chapter?.exercises?.length + exerciseIndex + 1}
                                 </h2>
 
                                 <h2 className="text-sm sm:text-lg md:text-2xl">
-                                  {exercise.name}
+                                  {exercise?.name}
                                 </h2>
                               </div>
 

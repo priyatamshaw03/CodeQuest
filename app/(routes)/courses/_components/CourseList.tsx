@@ -60,10 +60,10 @@ function CourseList({ smallerCard, maxLimit }: Props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getAllCourses();
+    GetAllCourses();
   }, []);
 
-  const getAllCourses = async () => {
+  const GetAllCourses = async () => {
     try {
       setLoading(true);
 
@@ -80,8 +80,8 @@ function CourseList({ smallerCard, maxLimit }: Props) {
   };
 
   return (
-    <div className="w-full px-3 sm:px-6 lg:px-8 my-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-4">
         
         {loading ? (
           <div className="col-span-full text-2xl sm:text-4xl text-center text-gray-400 font-game py-10">
@@ -91,7 +91,7 @@ function CourseList({ smallerCard, maxLimit }: Props) {
           courseList?.map(
             (course, index) =>
               (!maxLimit || index < maxLimit) && (
-                <Link href={`/courses/${course.id}`} key={course.id}>
+                <Link href={`/courses/${course?.courseId}`} key={index}>
                   <div className="border-2 border-zinc-800 rounded-xl overflow-hidden hover:bg-zinc-900 hover:scale-[1.02] transition-all duration-200 cursor-pointer flex flex-col h-full">
 
                     <div className="relative w-full aspect-video">
@@ -129,7 +129,6 @@ function CourseList({ smallerCard, maxLimit }: Props) {
           )
         )}
       </div>
-    </div>
   );
 }
 

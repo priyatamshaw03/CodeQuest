@@ -21,16 +21,16 @@ export default function Page() {
   const [isPro, setIsPro] = useState(false);
 
   useEffect(() => {
-    if (courseId) GetCourseDetail();
+      courseId && GetCourseDetail();
   }, [courseId]);
 
   const GetCourseDetail = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/course?courseId=${courseId}`);
-      setCourseDetail(res.data);
-      setIsEnrolled(res.data.userEnrolled);
-      setIsPro(res.data.userSubscription === "pro");
+      const result = await axios.get(`/api/course?courseid=${courseId}`);
+      setCourseDetail(result?.data);
+      setIsEnrolled(result?.data.userEnrolled);
+      setIsPro(result?.data.subscription === "premium");
     } finally {
       setLoading(false);
     }
