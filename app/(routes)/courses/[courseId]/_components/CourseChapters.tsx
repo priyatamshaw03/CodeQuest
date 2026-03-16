@@ -33,20 +33,28 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
   const { has } = useAuth();
   const hasPremiumAccess = has && has({ plan: "premium" });
 
-  const EnableExercise = (
+  const isExerciseCompleted = (chapterId: number, exerciseSlug: string) => {
+    return courseDetail?.completedExercises?.some(
+      (item) =>
+        item.chapterId === chapterId &&
+        String(item.exerciseId) === exerciseSlug
+    );
+  };
+
+  const enableExercise = (
     chapterIndex: number,
     exerciseIndex: number,
-    chapter: any,
+    chapter: any
   ) => {
     if (!isEnrolled) return false;
-
 
     const completed = courseDetail?.completedExercises ?? [];
     const chapters = courseDetail?.chapters ?? [];
 
     if (!chapters.length) return false;
 
-    if (!completed || completed.length === 0) {
+    // First exercise of course
+    if (!completed.length) {
       return chapterIndex === 0 && exerciseIndex === 0;
     }
 
@@ -62,8 +70,8 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     const prevChapter = chapters?.[chapterIndex - 1];
 
     if (prevChapter) {
-      const prevCompleted = prevChapter.exercises.every((e: any) =>
-        isExerciseCompleted(prevChapter.chapterId, e.slug),
+      const prevCompleted = prevChapter.exercises?.every((e: any) =>
+        isExerciseCompleted(prevChapter.chapterId, e.slug)
       );
 
       if (prevCompleted && exerciseIndex === 0) return true;
@@ -72,29 +80,18 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
     return false;
   };
 
-  const isExerciseCompleted = (chapterId: number, exerciseId: number) => {
-  return courseDetail?.completedExercises?.some(
-    (item) =>
-      item.chapterId === chapterId &&
-      item.exerciseId === exerciseId
-  );
-};
-
   return (
     <TooltipProvider delayDuration={200}>
       <section>
         {loading || !courseDetail?.chapters?.length ? (
           <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4 space-y-6">
-            {/* Chapter Skeleton */}
             {[1, 2, 3].map((_, i) => (
               <div key={i} className="space-y-4">
-                {/* Chapter title */}
                 <div className="flex items-center gap-6">
                   <Skeleton className="h-10 w-10 rounded-full" />
                   <Skeleton className="h-8 w-64" />
                 </div>
 
-                {/* Exercise skeletons */}
                 <div className="space-y-4 pl-16">
                   {[1, 2, 3].map((_, j) => (
                     <div key={j} className="flex items-center justify-between">
@@ -111,13 +108,12 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
           </div>
         ) : (
           <div className="p-4 sm:p-5 border-4 rounded-2xl mt-4">
-            {courseDetail.chapters.map((chapter, chapterIndex) => (
-              <Accordion
-                type="single"
-                collapsible
-                key={chapter.chapterId ?? chapterIndex}
-              >
-                <AccordionItem value={`item-${chapterIndex}`}>
+            <Accordion type="single" collapsible>
+              {courseDetail.chapters.map((chapter, chapterIndex) => (
+                <AccordionItem
+                  key={chapter.chapterId}
+                  value={`item-${chapterIndex}`}
+                >
                   <AccordionTrigger className="p-3 hover:bg-zinc-800 font-game text-base sm:text-2xl md:text-3xl">
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-4 sm:gap-6 md:gap-10">
@@ -126,6 +122,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                         </div>
                         <h2 className="truncate">{chapter.name}</h2>
                       </div>
+
                       {!hasPremiumAccess && chapterIndex >= 2 && (
                         <h2 className="font-game text-xl border-3 px-3 bg-yellow-400 text-black rounded-full">
                           Premium
@@ -136,17 +133,17 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
 
                   <AccordionContent>
                     <div className="p-4 sm:p-6 bg-zinc-900 rounded-xl">
-                      {chapter.exercises.map(
+                      {chapter.exercises?.map(
                         (exercise: any, exerciseIndex: number) => {
                           const completed = isExerciseCompleted(
                             chapter.chapterId,
-                            exercise.slug,
+                            exercise.slug
                           );
 
-                          const enabled = EnableExercise(
+                          const enabled = enableExercise(
                             chapterIndex,
                             exerciseIndex,
-                            chapter,
+                            chapter
                           );
 
                           let tooltipMessage = "Complete previous exercise";
@@ -155,7 +152,13 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                             tooltipMessage = "Enroll to unlock exercises";
                           else if (!enabled)
                             tooltipMessage = "Complete previous exercise";
-                          else if (!hasPremiumAccess) tooltipMessage = "Upgrade to Premium";
+                          else if (!hasPremiumAccess && chapterIndex >= 2)
+                            tooltipMessage = "Upgrade to Premium";
+
+                          const canAccess =
+                            enabled &&
+                            courseDetail?.userEnrolled &&
+                            (hasPremiumAccess || chapterIndex < 2);
 
                           return (
                             <div
@@ -171,6 +174,7 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                   {exercise.name}
                                 </h2>
                               </div>
+
                               {completed ? (
                                 <Button
                                   variant="pixel"
@@ -179,22 +183,14 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                 >
                                   Completed
                                 </Button>
-                              ) : courseDetail?.userEnrolled  &&
-                                !hasPremiumAccess &&
-                                chapterIndex < 2 ? (
+                              ) : canAccess ? (
                                 <Link
                                   href={`/courses/${courseDetail?.id}/${chapter.chapterId}/${exercise.slug}`}
                                 >
-                                  <Button variant="pixel">
-                                    {exercise?.xp} XP
-                                  </Button>
-                                </Link>
-                              ) : hasPremiumAccess &&
-                                courseDetail?.userEnrolled ? (
-                                <Link
-                                  href={`/courses/${courseDetail?.id}/${chapter.chapterId}/${exercise.slug}`}
-                                >
-                                  <Button variant="pixel">
+                                  <Button
+                                    variant="pixel"
+                                    className="cursor-pointer"
+                                  >
                                     {exercise?.xp} XP
                                   </Button>
                                 </Link>
@@ -202,26 +198,32 @@ function CourseChapters({ loading, courseDetail, isEnrolled }: Props) {
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <span className="cursor-not-allowed">
-                                      <Button variant="pixelDisabled" disabled>
+                                      <Button
+                                        variant="pixelDisabled"
+                                        disabled
+                                      >
                                         Locked
                                       </Button>
                                     </span>
                                   </TooltipTrigger>
 
-                                  <TooltipContent side="left" className="font-game text-sm sm:text-lg">
+                                  <TooltipContent
+                                    side="left"
+                                    className="font-game text-sm sm:text-lg"
+                                  >
                                     {tooltipMessage}
                                   </TooltipContent>
                                 </Tooltip>
                               )}
                             </div>
                           );
-                        },
+                        }
                       )}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-              </Accordion>
-            ))}
+              ))}
+            </Accordion>
           </div>
         )}
       </section>

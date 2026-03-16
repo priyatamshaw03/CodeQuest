@@ -8,14 +8,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
 
   const {searchParams} = new URL(req.url);
-  const courseId = searchParams.get('courseId')
+  const courseId = searchParams.get('courseid')
   const user = await currentUser();
 
-  const userEmail = user?.primaryEmailAddress?.emailAddress;
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
 
-    // if(!userEmail){
-    //     return NextResponse.json({error: "User not authenticated"});
-    // }
+//     if(!userEmail){
+//         return NextResponse.json({error: "User not authenticated"});
+//     }
 
   if(courseId && courseId !== 'enrolled'){
     //@ts-ignore

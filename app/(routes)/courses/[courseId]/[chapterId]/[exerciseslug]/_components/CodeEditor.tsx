@@ -84,7 +84,7 @@ function CodeEditor({ courseExerciseData, loading }: Props) {
         style={{
           height: "100vh",
         }}
-        files={courseExerciseData?.exerciseData.exercisesContent.starterCode}
+        files={courseExerciseData?.exerciseData.exercisesContent.starterCode ?? {}}
         options={{
           autorun: false,
           autoReload: false,

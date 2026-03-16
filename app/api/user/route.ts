@@ -5,29 +5,31 @@ import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:NextRequest) {
-    const user = await currentUser();
+export async function POST(req: NextRequest) {
+  const user = await currentUser();
 
-    //if user already exist??
-    const users = await db.select().from(usersTable)
-    //@ts-ignore
-    .where(eq(usersTable.email, user?.primaryEmailAddress?.emailAddress))
+  if (!user?.primaryEmailAddress?.emailAddress) {
+    return NextResponse.json({ error: "User email not found" }, { status: 400 });
+  }
 
-    // if Not, Then creae New User
-    if(users?.length <= 0){
-        const newUser = {
-            name: user?.fullName ??'', 
-            email: user?.primaryEmailAddress?.emailAddress ?? '',
-            points: 0
-        }
+  const email = user.primaryEmailAddress.emailAddress;
 
-        const result = await db.insert(usersTable)
-            .values(newUser).returning()
+  const users = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.email, email));
 
-        return NextResponse.json(result[0])
-    }
-    
-    //Return User Info
-    return NextResponse.json(users[0])
+  if (users.length === 0) {
+    const newUser = {
+      name: user.fullName ?? "",
+      email: email,
+      points: 0,
+    };
 
+    const result = await db.insert(usersTable).values(newUser).onConflictDoNothing().returning();
+
+    return NextResponse.json(result[0]);
+  }
+
+  return NextResponse.json(users[0]);
 }

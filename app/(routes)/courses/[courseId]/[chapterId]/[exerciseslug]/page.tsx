@@ -5,12 +5,13 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import SplitterLayout from "react-splitter-layout";
 import "react-splitter-layout/lib/index.css";
-import { exercise } from "../../../_components/CourseList";
+
 import ContentSection from "./_components/ContentSection";
 import CodeEditor from "./_components/CodeEditor";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { Exercise } from "../../../_components/CourseList";
 
 export type CourseExercise = {
   chapterId: number;
@@ -18,7 +19,7 @@ export type CourseExercise = {
   desc: string;
   name: string;
   editorType?: string;
-  exercises: exercise[];
+  exercises: Exercise[];
   exerciseData: ExerciseData;
   completedExercises?: {
     chapterId: number;
@@ -47,7 +48,7 @@ function Playground() {
   const [loading, setLoading] = useState(false);
   const [courseExerciseData, setCourseExerciseData] =
     useState<CourseExercise>();
-  const [exerciseInfo, setExerciseInfo] = useState<exercise>();
+  const [exerciseInfo, setExerciseInfo] = useState<Exercise>();
   const [nextButtonRoute, setNextButtonRoute]=useState<string>();
   const [prevButtonRoute, setPrevButtonRoute]=useState<string>();
 
