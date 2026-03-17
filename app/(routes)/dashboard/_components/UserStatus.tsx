@@ -27,16 +27,10 @@ function UserStatus() {
                 <Image src={'/badge.png'} alt='star' width={35} height={35}/>
                 <div>
                     <h2 className='text-3xl font-game'>0</h2>
-                    <h2 className='font-game text-xl text-gray-400'>Badge</h2>
+                    <h2 className='font-game text-xl text-gray-400'>Badges</h2>
                 </div>
             </div>
-            <div className='flex gap-3 items-center'>
-                <Image src={'/book.png'} alt='star' width={35} height={35}/>
-                <div>
-                    <h2 className='text-3xl font-game'>{userDetail?.totalExercises || 0}</h2>
-                    <h2 className='font-game text-xl text-gray-400'>Total Exercises</h2>
-                </div>
-            </div>
+            
             <div className='flex gap-3 items-center'>
                 <Image src={'/fire.png'} alt='star' width={35} height={35}/>
                 <div>
