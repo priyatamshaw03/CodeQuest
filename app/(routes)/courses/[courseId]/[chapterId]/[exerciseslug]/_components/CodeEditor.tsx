@@ -43,7 +43,7 @@ const CodeEditorChildren = ({ onCompleteExercise, IsCompleted }: any) => {
         onClick={() => onCompleteExercise()}
         disabled={IsCompleted}
       >
-        {IsCompleted?'Already Completed !':'Mark as Completed'}
+        {IsCompleted?'Already Completed!':'Mark as Completed'}
       </Button>
     </div>
   );
@@ -51,7 +51,7 @@ const CodeEditorChildren = ({ onCompleteExercise, IsCompleted }: any) => {
 
 function CodeEditor({ courseExerciseData, loading }: Props) {
   const { exerciseslug } = useParams();
-  const exerciseIndex = courseExerciseData?.exercises?.findIndex((item) => item.slug == exerciseslug,);
+  const exerciseIndex = courseExerciseData?.exercises?.findIndex((item) => item.slug == exerciseslug);
 
   const IsCompleted=courseExerciseData?.completedExercises?.find(item=>item?.exerciseId==Number(exerciseIndex)+1);
   console.log(IsCompleted);
@@ -61,17 +61,15 @@ function CodeEditor({ courseExerciseData, loading }: Props) {
     if (exerciseIndex == undefined) {
       return;
     }
-    console.log(
-      "courseExerciseData?.exercises[exerciseIndex].xp",
-      courseExerciseData?.exercises[exerciseIndex].xp,
-    );
+    
     const result = await axios.post('/api/exercise/complete',{
       courseId:courseExerciseData?.courseId,
       chapterId:courseExerciseData?.chapterId,
       exerciseId:exerciseIndex+1,
       xpEarned:courseExerciseData?.exercises[exerciseIndex].xp
     })
-    toast.success("Exercise Completed");
+    console.log(result);
+    toast.success("Exercise Completed!");
   };
 
   return (

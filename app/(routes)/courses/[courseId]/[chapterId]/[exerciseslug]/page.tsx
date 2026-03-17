@@ -79,7 +79,6 @@ function Playground() {
 
   useEffect(() => {
     if (!courseExerciseData) return;
-
     GetExerciseDetail();
     GetPrevNextButtonRoute();
   }, [courseExerciseData]);
@@ -145,7 +144,7 @@ function Playground() {
         <div className="flex gap-3 items-center">
           <Image src="/star.png" alt="star" width={40} height={40} />
           <h2 className="text-2xl">
-            You can Earn <span className="text-4xl">{exerciseInfo?.xp}</span> XP
+            You can Earn <span className="text-4xl">{exerciseInfo?.xp ?? 0}</span> XP
           </h2>
         </div>
         <Link href={nextButtonRoute??'/courses/'+courseId}>
